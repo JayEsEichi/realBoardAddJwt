@@ -1,6 +1,5 @@
 package sparta.project.realboard.Entity;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,8 +14,9 @@ import java.time.LocalDateTime;
 @Entity
 public class RealBoard{
 
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @javax.persistence.Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="board_id")
+    @Id
     private Long id;
 
     @Column(length = 500, nullable = false)
@@ -31,25 +31,25 @@ public class RealBoard{
     @Column(columnDefinition="TEXT",nullable = false)
     private String content;
 
+    @ManyToOne
+    @JoinColumn(nullable = false, name="user_id")
+    private User user;
+
     @Column
     private LocalDateTime createdDate = LocalDateTime.now();
-
     @Column
     public LocalDateTime modifiedDate;
 
-    @Builder
-    public RealBoard(String title, String writer, String password, String content){
+    public RealBoard(String title,String writer, String password, String content, User user){
         this.title = title;
         this.writer = writer;
         this.password = password;
         this.content = content;
-
+        this.user = user;
     }
 
     public void update(RealBoardDto boarddto){
         this.title = boarddto.getTitle();
-        this.writer = boarddto.getWriter();
-        this.password = boarddto.getPassword();
         this.content = boarddto.getContent();
         this.modifiedDate = LocalDateTime.now();
     }
