@@ -25,7 +25,6 @@ public class CommentController {
     @PostMapping("/api/comment")
     public SingleResponse<Comment> writecomment(@RequestBody CommentRequestDto commentRequestDto,
                                                 @AuthenticationPrincipal UserDetailsImpl userDetails){
-
         return responseService.getSingleResponse(commentService.writecomment(commentRequestDto, userDetails));
     }
 
@@ -46,10 +45,10 @@ public class CommentController {
 
     // 댓글 수정
     // {id}는 댓글 id, postid는 게시글 id
-    @PutMapping("/api/comment/{id}")
-    public SingleResponse<Comment> updatecomment(@PathVariable Long id,@RequestBody CommentRequestDto commentRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails){
-        return responseService.getSingleResponse(commentService.updatecomment(id, commentRequestDto, userDetails));
-    }
+//    @PutMapping("/api/comment/{id}")
+//    public SingleResponse<Comment> updatecomment(@PathVariable Long id,@RequestBody CommentRequestDto commentRequestDto, @AuthenticationPrincipal UserDetailsImpl userDetails){
+//        return responseService.getSingleResponse(commentService.updatecomment(id, commentRequestDto, userDetails));
+//    }
 
 
     // 댓글 삭제

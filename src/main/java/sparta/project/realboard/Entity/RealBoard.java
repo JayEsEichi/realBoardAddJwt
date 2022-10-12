@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 public class RealBoard{
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="board_id")
+    @Column(name="boardid")
     @Id
     private Long id;
 
@@ -32,7 +32,7 @@ public class RealBoard{
     private String content;
 
     @ManyToOne
-    @JoinColumn(nullable = false, name="user_id")
+    @JoinColumn(nullable = false, name="userid")
     private User user;
 
     @Column

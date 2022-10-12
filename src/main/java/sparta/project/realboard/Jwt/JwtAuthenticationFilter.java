@@ -95,13 +95,11 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         String refreshjwtToken = JWT.create()
                 .withSubject(userDetails.getUsername())
                 .withExpiresAt(new Date(System.currentTimeMillis()+JwtProperties.REFRESH_EXPIRATION_TIME))
-                .withClaim("id", userDetails.getUser().getId())
-                .withClaim("username", userDetails.getUser().getUsername())
                 .sign(Algorithm.HMAC512(JwtProperties.REFRESH_SECRET_KEY));
 
-        response.addHeader(JwtProperties.HEADER_STRING, JwtProperties.TOKEN_PREFIX + accessjwtToken);
+        response.addHeader(JwtProperties.ACCESS_HEADER_STRING, JwtProperties.TOKEN_PREFIX + accessjwtToken);
+        response.addHeader(JwtProperties.REFRESH_HEADER_STRING, refreshjwtToken);
 
-        System.out.println("리스폰스 확인 = " + response.getHeader(JwtProperties.HEADER_STRING));
     }
 
 }

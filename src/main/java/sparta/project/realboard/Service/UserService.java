@@ -78,7 +78,7 @@ public class UserService {
         System.out.println(user.getUsername());
         System.out.println(user.getPassword());
 
-        System.out.println(response.getHeader(JwtProperties.HEADER_STRING));
+        System.out.println(response.getHeader(JwtProperties.ACCESS_HEADER_STRING));
 
         if(userRepository.findByUsernameAndPassword(username, password) == null){
             throw new NullPointerException("옳바르지 않은 계정입니다.");

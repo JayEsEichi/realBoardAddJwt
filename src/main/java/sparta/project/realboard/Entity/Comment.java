@@ -2,6 +2,7 @@ package sparta.project.realboard.Entity;
 
 import lombok.*;
 import net.bytebuddy.asm.Advice;
+import net.minidev.json.annotate.JsonIgnore;
 import sparta.project.realboard.Dto.CommentRequestDto;
 
 import javax.persistence.*;
@@ -31,18 +32,15 @@ public class Comment {
     @Column
     private LocalDateTime updatecommenttime;
 
-    @Column
-    private Long boardid;
-    @Column
-    private Long userid;
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name="boardid")
+    private RealBoard realBoard;
 
-//    @ManyToOne
-//    @JoinColumn(name="board_id")
-//    private RealBoard realBoard;
-//
-//    @ManyToOne
-//    @JoinColumn(name="user_id")
-//    private User user;
+    @JsonIgnore
+    @ManyToOne
+    @JoinColumn(name="userid")
+    private User user;
 
     // 예시 형식에 맞게 게시글, 유저 정보는 안나오고 작성자만 추가되어 댓글 정보 출력
     public Comment(String content, String author){
@@ -52,11 +50,11 @@ public class Comment {
 
 
     // 댓글, 게시글, 회원 정보 모두 출력
-    public Comment(String content, String author, Long boardid, Long userid){
+    public Comment(String content, String author, RealBoard realBoard, User user){
         this.content = content;
         this.author = author;
-        this.boardid = boardid;
-        this.userid = userid;
+        this.realBoard = realBoard;
+        this.user = user;
     }
 
 

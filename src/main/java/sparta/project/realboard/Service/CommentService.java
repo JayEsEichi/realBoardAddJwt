@@ -32,8 +32,8 @@ public class CommentService {
         Comment comment = new Comment(
                 commentRequestDto.getContent(),
                 userDetails.getUser().getUsername(),
-                realBoard.getId(),
-                userDetails.getUser().getId()
+                realBoard, // realBoard
+                userDetails.getUser() // user
         );
 
         commentRepository.save(comment);
@@ -53,7 +53,7 @@ public class CommentService {
         List<Comment> comments = new ArrayList<>();
 
         for(Comment c : commentlist){
-            if(c.getBoardid().equals(id)){
+            if(c.getRealBoard().getId().equals(id)){ // getRealboard().getId();
                 comments.add(c);
             }
         }
@@ -61,25 +61,25 @@ public class CommentService {
     }
 
     // 댓글 수정
-    @Transactional
-    public Comment updatecomment(Long id, CommentRequestDto commentRequestDto, UserDetailsImpl userDetails){
-        Comment comment = commentRepository.findByBoardid(commentRequestDto.getPostid());
-
-        if(comment == null){
-            throw new NullPointerException("등록되지 않은 게시글입니다.");
-        }
-
-        if(!comment.getId().equals(id)){
-            throw new IllegalArgumentException("게시글에 해당 댓글이 존재하지 않습니다.");
-        }
-
-        if(!userDetails.getUser().getUsername().equals(comment.getAuthor())) {
-            throw new IllegalArgumentException("댓글 작성자가 아니기 때문에 수정할 수 없습니다.");
-        }
-
-        comment.update(commentRequestDto.getContent());
-        return comment;
-    }
+//    @Transactional
+//    public Comment updatecomment(Long id, CommentRequestDto commentRequestDto, UserDetailsImpl userDetails){
+//        Comment comment = commentRepository.findByBoardid(commentRequestDto.getPostid());
+//
+//        if(comment == null){
+//            throw new NullPointerException("등록되지 않은 게시글입니다.");
+//        }
+//
+//        if(!comment.getId().equals(id)){
+//            throw new IllegalArgumentException("게시글에 해당 댓글이 존재하지 않습니다.");
+//        }
+//
+//        if(!userDetails.getUser().getUsername().equals(comment.getAuthor())) {
+//            throw new IllegalArgumentException("댓글 작성자가 아니기 때문에 수정할 수 없습니다.");
+//        }
+//
+//        comment.update(commentRequestDto.getContent());
+//        return comment;
+//    }
 
 
     // 지정 댓글 삭제
@@ -89,7 +89,7 @@ public class CommentService {
                 () -> new NullPointerException("해당 계정으로 작성한 댓글이 존재하지 않습니다.")
         );
 
-        if(!comment.getUserid().equals(userDetails.getUser().getId())){
+        if(!comment.getUser().getId().equals(userDetails.getUser().getId())){
             throw new IllegalArgumentException("해당 댓글의 작성자가 아니기 때문에 삭제할 수 없습니다.");
         }
 
