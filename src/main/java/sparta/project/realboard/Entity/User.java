@@ -1,19 +1,15 @@
 package sparta.project.realboard.Entity;
 
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import sparta.project.realboard.Dto.LoginRequestDto;
-import sparta.project.realboard.Dto.UserRequestDto;
 
 import javax.persistence.*;
-import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
 @Entity(name = "users")
 public class User {
 
@@ -33,31 +29,31 @@ public class User {
     private UserRoleEnum role;
 
     @Column(nullable = false)
-    private LocalDateTime createdAt;
+    private LocalDateTime createdat;
 
     @Column(nullable = false)
-    private LocalDateTime modifiedAt;
+    private LocalDateTime modifiedat;
 
 
     public User(String username, String password){
         this.username = username;
         this.password = password;
-        this.createdAt = LocalDateTime.now();
-        this.modifiedAt = LocalDateTime.now();
+        this.createdat = LocalDateTime.now();
+        this.modifiedat = LocalDateTime.now();
     }
     public User(String username, String password, UserRoleEnum role){
         this.username = username;
         this.password = password;
         this.role = role;
-        this.createdAt = LocalDateTime.now();
-        this.modifiedAt = LocalDateTime.now();
+        this.createdat = LocalDateTime.now();
+        this.modifiedat = LocalDateTime.now();
     }
 
     public User(LoginRequestDto loginRequestDto){
         this.username = loginRequestDto.getUsername();
         this.password = loginRequestDto.getPassword();
-        this.createdAt = LocalDateTime.now();
-        this.modifiedAt = LocalDateTime.now();
+        this.createdat = LocalDateTime.now();
+        this.modifiedat = LocalDateTime.now();
     }
 
 

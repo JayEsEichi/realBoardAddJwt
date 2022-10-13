@@ -1,26 +1,13 @@
 package sparta.project.realboard.Service;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.algorithms.Algorithm;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
-import sparta.project.realboard.Dto.LoginRequestDto;
 import sparta.project.realboard.Dto.UserRequestDto;
 import sparta.project.realboard.Entity.User;
 import sparta.project.realboard.Entity.UserRoleEnum;
-import sparta.project.realboard.Jwt.JwtProperties;
 import sparta.project.realboard.Repository.UserRepository;
-import sparta.project.realboard.Security.UserDetailsImpl;
 
-import javax.servlet.http.HttpServletResponse;
-import javax.transaction.Transactional;
-import java.util.Date;
-import java.util.Optional;
 import java.util.regex.Pattern;
 
 @RequiredArgsConstructor

@@ -18,11 +18,10 @@ public class RealBoardResponseDto {
     private String title;
 
     private String writer;
-//    private User writer;
-//    private String password;
+
     private String content;
-    private LocalDateTime createdDate;
-    private LocalDateTime modifiedDate;
+    private LocalDateTime createdat;
+    private LocalDateTime modifiedat;
 
     public RealBoardResponseDto (RealBoard realBoard){
         this.id = realBoard.getId();
@@ -31,16 +30,16 @@ public class RealBoardResponseDto {
 //        this.writer = userRepository.findByUsername(realBoard.getWriter());
 //        this.password = realBoard.getPassword();
         this.content = realBoard.getContent();
-        this.createdDate = realBoard.getCreatedDate();
-        this.modifiedDate = realBoard.getModifiedDate();
+        this.createdat = realBoard.getCreatedat();
+        this.modifiedat = realBoard.getModifiedat();
 
         System.out.println("id = " + id);
         System.out.println("title = " + title);
         System.out.println("writer = " + writer);
 //        System.out.println("작성 유저 : " + userRepository.findByUsername(realBoard.getWriter()));
         System.out.println("content = " + content);
-        System.out.println("createdDate = " + createdDate);
-        System.out.println("modifiedDate = " + modifiedDate);
+        System.out.println("createdat = " + createdat);
+        System.out.println("modifiedat = " + modifiedat);
     }
 
 }

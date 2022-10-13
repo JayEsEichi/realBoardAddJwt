@@ -23,7 +23,7 @@ public class RealBoardService {
     // 전체 조회
     @Transactional // SQL 쿼리가 일어나야 함을 스프링에게 알려줌
     public List<RealBoardResponseDto> contentlist() {
-        Sort sort = Sort.by(Sort.Direction.DESC,  "createdDate");
+        Sort sort = Sort.by(Sort.Direction.DESC,  "createdat");
         List<RealBoard> list = realBoardRepository.findAll(sort);
         return list.stream().map(RealBoardResponseDto::new).collect(Collectors.toList());
     }

@@ -36,9 +36,9 @@ public class RealBoard{
     private User user;
 
     @Column
-    private LocalDateTime createdDate = LocalDateTime.now();
+    private LocalDateTime createdat = LocalDateTime.now();
     @Column
-    public LocalDateTime modifiedDate;
+    public LocalDateTime modifiedat;
 
     public RealBoard(String title,String writer, String password, String content, User user){
         this.title = title;
@@ -51,7 +51,7 @@ public class RealBoard{
     public void update(RealBoardDto boarddto){
         this.title = boarddto.getTitle();
         this.content = boarddto.getContent();
-        this.modifiedDate = LocalDateTime.now();
+        this.modifiedat = LocalDateTime.now();
     }
 
 

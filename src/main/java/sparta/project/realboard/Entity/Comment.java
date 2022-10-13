@@ -26,11 +26,11 @@ public class Comment {
     private String content;
 
     @Column
-    private LocalDateTime createcommenttime = LocalDateTime.now();
+    private LocalDateTime createdat = LocalDateTime.now();
 
     // 수정 시간은 초기에 없도록 설정
     @Column
-    private LocalDateTime updatecommenttime;
+    private LocalDateTime modifiedat;
 
     @JsonIgnore
     @ManyToOne
@@ -60,7 +60,7 @@ public class Comment {
 
     public void update(String content){
         this.content = content;
-        this.updatecommenttime = LocalDateTime.now();
+        this.modifiedat = LocalDateTime.now();
     }
 
 }
