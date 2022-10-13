@@ -52,34 +52,38 @@ public class CommentService {
         List<Comment> commentlist = commentRepository.findAll();
         List<Comment> comments = new ArrayList<>();
 
-        for(Comment c : commentlist){
-            if(c.getRealBoard().getId().equals(id)){ // getRealboard().getId();
-                comments.add(c);
+        for(Comment comment : commentlist){
+            if(comment.getRealBoard().getId().equals(id)){ // getRealboard().getId();
+                comments.add(comment);
             }
         }
         return comments;
     }
 
     // 댓글 수정
-//    @Transactional
-//    public Comment updatecomment(Long id, CommentRequestDto commentRequestDto, UserDetailsImpl userDetails){
-//        Comment comment = commentRepository.findByBoardid(commentRequestDto.getPostid());
-//
-//        if(comment == null){
-//            throw new NullPointerException("등록되지 않은 게시글입니다.");
-//        }
-//
-//        if(!comment.getId().equals(id)){
-//            throw new IllegalArgumentException("게시글에 해당 댓글이 존재하지 않습니다.");
-//        }
-//
-//        if(!userDetails.getUser().getUsername().equals(comment.getAuthor())) {
-//            throw new IllegalArgumentException("댓글 작성자가 아니기 때문에 수정할 수 없습니다.");
-//        }
-//
-//        comment.update(commentRequestDto.getContent());
-//        return comment;
-//    }
+    @Transactional
+    public Comment updatecomment(Long id, CommentRequestDto commentRequestDto, UserDetailsImpl userDetails){
+        List<Comment> commentlist = commentRepository.findByRealBoard_Id(commentRequestDto.getPostid());
+
+        if(commentlist == null){
+            throw new NullPointerException("등록되지 않은 게시글입니다.");
+        }
+
+        Comment updatedcomment = new Comment();
+
+        for(Comment comment : commentlist){
+            if(comment.getId().equals(id)){
+                if(!userDetails.getUser().getUsername().equals(comment.getAuthor())) {
+                    throw new IllegalArgumentException("댓글 작성자가 아니기 때문에 수정할 수 없습니다.");
+                }
+
+                comment.update(commentRequestDto.getContent());
+                updatedcomment = comment;
+            }
+        }
+
+        return updatedcomment;
+    }
 
 
     // 지정 댓글 삭제

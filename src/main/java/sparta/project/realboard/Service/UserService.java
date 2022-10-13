@@ -33,9 +33,8 @@ public class UserService {
 
 
     // 회원가입
-    public void registeraccount(UserRequestDto userRequestDto){
+    public User registeraccount(UserRequestDto userRequestDto){
         // 아이디 중복확인
-//        String nickname = userRequestDto.getUsername();
         Pattern pattern1 = Pattern.compile("^([a-zA-Z0-9]*)$");
         String username = userRequestDto.getUsername();
 
@@ -62,30 +61,12 @@ public class UserService {
             if (!userRequestDto.getAdminToken().equals(ADMIN_TOKEN)) throw new IllegalArgumentException("관리자 암호가 틀려 등록이 불가능합니다.");
             role = UserRoleEnum.ADMIN;
         }
+
         User user = new User(username, password, role);
-
-//        userRequestDto.setPassword(passwordEncoder.encode(password));
-
         userRepository.save(user);
 
+        return user;
+
     }
-
-    @Transactional
-    public User userlogin(LoginRequestDto loginRequestDto,HttpServletResponse response, User user){
-        String username = loginRequestDto.getUsername();
-        String password = loginRequestDto.getPassword();
-
-        System.out.println(user.getUsername());
-        System.out.println(user.getPassword());
-
-        System.out.println(response.getHeader(JwtProperties.ACCESS_HEADER_STRING));
-
-        if(userRepository.findByUsernameAndPassword(username, password) == null){
-            throw new NullPointerException("옳바르지 않은 계정입니다.");
-        }
-
-        return userRepository.findByUsernameAndPassword(username, password);
-    }
-
 
 }
